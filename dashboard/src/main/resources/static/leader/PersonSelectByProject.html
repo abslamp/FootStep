@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- 
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
 Version: 4.5.2
@@ -19,12 +19,20 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />
-        <title>Metronic | Tree View</title>
+        <title>Metronic | Ajax Datatables</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <style>
+			td{
+				text-align:center;
+			}
+			thead th{
+				text-align:center; !important
+			}
+		</style>
         
         <link href="../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
@@ -33,7 +41,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="../assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="../assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
@@ -43,8 +53,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="../assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="../assets/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
+        <script src="footstep_pre.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
+        <!--<link rel="shortcut icon" href="favicon.ico" /> </head>-->
     <!-- END HEAD -->
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
@@ -484,14 +495,35 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                        <li class="nav-item start ">
-                            <a href="../index.html" class="nav-link nav-toggle">
+                        <li class="nav-item start">
+                            <a href="index.html" class="nav-link nav-toggle">
                                 <i class="icon-home"></i>
                                 <span class="title">主页</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="ReportManage-Add.html" class="nav-link nav-toggle">
+                                <i class="icon-plus"></i>
+                                <span class="title">新日报</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="audit_report.html" class="nav-link nav-toggle">
+                                <i class="icon-check"></i>
+                                <span class="title">日报审核</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
                         <li class="nav-item  ">
+                            <a href="ReportManage-Select.html" class="nav-link nav-toggle">
+                                <i class="icon-layers"></i>
+                                <span class="title">部门日报管理</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item  active">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-info"></i>
                                 <span class="title">信息汇总查询</span>
@@ -499,53 +531,28 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item  ">
-                                    <a href="ui_colors.html" class="nav-link ">
+                                    <a href="ProjectInput.html" class="nav-link ">
                                         <span class="title">项目汇总</span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="ui_general.html" class="nav-link ">
+                                    <a href="department_allnum.html" class="nav-link ">
                                         <span class="title">部门汇总</span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="ui_buttons.html" class="nav-link ">
+                                    <a href="PersonSelectByProject.html" class="nav-link ">
+                                        <span class="title">项目工作量</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="person_seleectbydate.html" class="nav-link ">
                                         <span class="title">部门工作量</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item  active">
-                            <a href="javascript:;" class="nav-link nav-toggle">
-                                <i class="icon-settings"></i>
-                                <span class="title">公司信息管理</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li class="nav-item  ">
-                                    <a href="ui_colors.html" class="nav-link ">
-                                        <span class="title">部门</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="ui_general.html" class="nav-link ">
-                                        <span class="title">项目</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="ui_buttons.html" class="nav-link ">
-                                        <span class="title">PRP阶段</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="ui_buttons.html" class="nav-link ">
-                                        <span class="title">雇员</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    	
+                    </ul>	
                     <!-- END SIDEBAR MENU -->
                 </div>
                 <!-- END SIDEBAR -->
@@ -641,8 +648,8 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                     <!-- END THEME PANEL -->
-                    <h3 class="page-title"> Tree View
-                        <small>customizable fuelux tree view</small>
+                    <h3 class="page-title"> Ajax Datatables
+                        <small>basic datatable samples</small>
                     </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
@@ -652,7 +659,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <span>UI Features</span>
+                                <a href="#">Tables</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>Datatables</span>
                             </li>
                         </ul>
                         <div class="page-toolbar">
@@ -683,14 +694,78 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                     <!-- END PAGE HEADER-->
-                    <!-- BEGIN PAGE CONTENT-->
                     <div class="row">
-                        <div class="col-md-4">
+                  <div class="col-md-12">
+                            <!-- Begin: life time stats -->
+                            <div class="note note-info">
+                                <div class="caption" style="margin-bottom: 20px;">
+                                    <i class="icon-settings font-dark"></i>
+                                    <span class="caption-subject font-dark sbold uppercase">日报管理——查询条件</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <form id="footstep_form">
+                                    	<div class="row">
+	                                    		 <label class="col-md-1 control-label font-dark">开始日期</label>
+	                                        <div class="col-md-5">
+	                                            <div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy/mm/dd">
+	                                                            <input type="text" class="form-control form-filter input-sm" readonly id="startTime" placeholder="From">
+	                                                            <span class="input-group-btn">
+	                                                                <button class="btn btn-sm default" type="button">
+	                                                                    <i class="fa fa-calendar"></i>
+	                                                                </button>
+	                                                            </span>
+	                                                        </div>
+	                                            </div>
+	                                                        <label class="col-md-1 control-label font-dark">结束日期</label>
+	                                                         <div class="col-md-5">
+	                                                        <div class="input-group date date-picker" data-date-format="yyyy/mm/dd">
+	                                                            <input type="text" class="form-control form-filter input-sm" readonly id="endTime" placeholder="To">
+	                                                            <span class="input-group-btn">
+	                                                                <button class="btn btn-sm default" type="button">
+	                                                                    <i class="fa fa-calendar"></i>
+	                                                                </button>
+	                                                            </span>
+	                                                        </div>
+	                                            
+	                                        </div>
+                                    		
+                                    	</div>
+                                    	<div class="row">
+                                    		<label class="col-md-1 control-label font-dark">人员</label>
+                                        <div class="col-md-5" >
+                                             <select id="name" class="form-control form-filter input-sm">
+                                                           
+                                                           
+                                          </select>
+                                     </div>
+                                    		
+                                    	</div>
+                                       
+                                      
+                                        
+ 
+                                        
+   
+                                    </form>
+                                </div>
+                                <div align="right">
+					<a href="javascript:"><button type="button" class="btn btn-default">清空</button></a>
+					<a href="javascript:btnQuery()"><button type="button" class="btn btn-primary">查询</button></a>
+ 
+				</div>
+                                <p>　</p>
+                            </div>
+                            
+                            <!-- End: life time stats -->
+                        </div>
+                  <div class="col-md-12">
+                            <!-- BEGIN SAMPLE TABLE PORTLET-->
                             <div class="portlet light ">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-sitemap font-blue"></i>
-                                        <span class="caption-subject font-blue-sharp bold uppercase">组织结构</span>
+                                        <i class="icon-social-dribbble font-green"></i>
+                                        <span class="caption-subject font-green bold uppercase">Simple Table</span>
                                     </div>
                                     <div class="actions">
                                         <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
@@ -704,127 +779,34 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </a>
                                     </div>
                                 </div>
-                                    
                                 <div class="portlet-body">
-                                    <div id="department_tree" class="tree-demo"> </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    	<div class="col-md-8">
-                            <!-- BEGIN EDIT FORM -->
-                            <div class="portlet light ">
-                                <div class="portlet-title">
-                                    <div class="caption font-blue">
-                                        <i class="icon-settings font-blue"></i>
-                                        <span class="caption-subject bold uppercase"> 部门详情</span>
+                                    <div class="table-scrollable">
+                                        <table class="table table-hover footstep_table">
+                                            <thead>
+                                                <tr>
+                                                	
+                                               
+                                                    <th> 项目 </th>
+                                                   
+                                                    <th> 总工作量 </th>
+                                                    
+                                                    <th> 加班工作量  </th>
+                                                    
+                                                   
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <div class="actions">
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm green dropdown-toggle" href="javascript:;" data-toggle="dropdown"> Actions
-                                                <i class="fa fa-angle-down"></i>
-                                            </a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="javascript:;">
-                                                        <i class="fa fa-pencil"></i> 编辑 </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:showCreateForm();">
-                                                        <i class="fa fa-plus"></i> 新增 </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="portlet-body form">
-                                    <form id="department_edit" role="form">
-                                    	<input id="dept_form_id" type="hidden" name="updateId" />
-                                        <div class="form-body">
-                                            <div class="form-group">
-                                                <label>部门名称</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-group"></i>
-                                                    </span>
-                                                    <input type="text" id="dept_form_name" class="form-control" name="name" placeholder="部门名称"> </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>部门领导</label>
-                                                <div class="input-group">
-                                                	<span class="input-group-addon">
-                                                        <i class="fa fa-user font-red" style="width: 15px;"></i>
-                                                    </span>
-                                                    <input type="text" id="dept_form_leader" class="form-control" name="leader" placeholder="部门领导">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>上级部门</label>
-                                                <select id="dept_form_superior_id" class="form-control" name="superiorId">
-                                                    <option value="0">测试用</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>备注</label>
-                                                <textarea id="dept_form_remark" name="remark" class="form-control" rows="3"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-actions">
-                                            <a href="javascript:submitFormEdit();"><button type="button" class="btn blue">提交</button></a>
-                                            <a href=""><button type="button" class="btn default">取消</button></a>
-                                        </div>
-                                    </form>
+                                    <div class="dataTables_paginate paging_bootstrap_number" id="sample_3_paginate"><ul class="pagination" style="visibility: visible;"><li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li></ul></div>
                                 </div>
                             </div>
-                            <!-- END EDIT FORM -->
-                            <!-- BEGIN CREATE FORM -->
-                            <div class="portlet box blue " id="create_form_div" hidden>
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-plus-square"></i> 新增部门 </div>
-                                </div>
-                                <div class="portlet-body form">
-                                    <form role="form" id="department_create">
-                                    	
-                                        <div class="form-body">
-                                            <div class="form-group">
-                                                <label>部门名称</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="fa fa-group"></i>
-                                                    </span>
-                                                    <input type="text" id="dept_form_name_create" class="form-control" name="name" placeholder="部门名称"> </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>部门领导</label>
-                                                <div class="input-group">
-                                                	<span class="input-group-addon">
-                                                        <i class="fa fa-user font-red" style="width: 15px;"></i>
-                                                    </span>
-                                                    <input type="text" id="dept_form_leader_create" class="form-control" name="leader" placeholder="部门领导">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>上级部门</label>
-                                                <select id="dept_form_superior_id_create" class="form-control" name="superiorId">
-                                                    <option value="0">测试用</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>备注</label>
-                                                <textarea id="dept_form_remark_create" name="remark" class="form-control" rows="3"></textarea>
-                                            </div>
-                                        <div class="form-actions">
-                                            <a href="javascript:hideCreateForm()"><button type="button" class="btn default">Cancel</button></a>
-                                            <a href="javascript:submitFormCreate()"><button type="button" class="btn red">Submit</button></a>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- BEGIN CREATE FORM -->
+                            <!-- END SAMPLE TABLE PORTLET-->
                         </div>
                     </div>
-                    <!-- END PAGE CONTENT-->
                 </div>
                 <!-- END CONTENT BODY -->
             </div>
@@ -1403,9 +1385,9 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
         <!-- END FOOTER -->
         <!--[if lt IE 9]>
-<script src="../assets/global/plugins/respond.min.js"></script>
-<script src="../assets/global/plugins/excanvas.min.js"></script> 
-<![endif]-->
+    <script src="../assets/global/plugins/respond.min.js"></script>
+    <script src="../assets/global/plugins/excanvas.min.js"></script>
+        <![endif]-->
         <!-- BEGIN CORE PLUGINS -->
         <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -1415,21 +1397,120 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-        <script src="../assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <script src="../assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script>
+        <script src="../assets/global/scripts/datatable.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+        <script src="../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="../assets/global/scripts/app.min.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="../assets/pages/scripts/table-datatables-ajax.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="../assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>
         <script src="../assets/layouts/layout2/scripts/demo.min.js" type="text/javascript"></script>
         <script src="../assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
+
+        <script type="text/javascript">
+            //将目标表格<table>的CLASS加上 footstep_table
+            //ajaxDataSource设置为ajax数据源地址(controller)
+            var ajaxDataSource="http://localhost:9002/PersonSelect/ByProject";
+            //ajaxDataSource设置为ajax获取数据总列数地址(controller)
+            var ajaxDataRows="http://localhost:9002/PersonSelect/rowscount";
+            //ajaxDeleteMethod设置为ajax删除地址。按ID删除。
+            var ajaxDeleteMethod="http://localhost:9002/SelectReport/delete";
+            //ajaxUpdateMethod设置为ajax更新地址.按ID更新.
+            var ajaxUpdateMethod="http://localhost:9002/SelectReport/update";
+            //ajaxType设置为HTTP方法类型。get/post
+            var ajaxType="get";
+            
+            //是否存在删除按钮
+            var isDeleteExists=false;
+            //是否存在修改按钮
+            var isUpdateExists=false;
+            
+            
+            //当前页面页码。供翻页使用。
+            var currentPage=1;
+			//用于存储ajax所附加的参数
+            var footstep_param = new Object();
+            
+            //单击更新时的回调方法
+            function showUpdateDialog(id) {
+            	
+            }
+
+        </script>
+        
+        <script>
+        	function btnQuery(){
+        		footstep_param.startTime=$("#startTime").val();
+				footstep_param.endTime=$("#endTime").val();
+        		footstep_param.name=$("#name").val();
+				
+        		queryUpdate();
+        	}
+			
+			p= new Object();
+		    p.name=$("#name").val();
+			function getQueryName(ajaxdata){
+				
+				
+				var optionName="<option value=''>全部</option> "	
+				
+				
+				$.ajax({
+					type:"POST",
+					dataType:"json",
+					data:ajaxdata,
+					url:"http://localhost:9002/PersonSelect/name" ,
+					success:function(data){
+						for(var i=0;i<data.length;i++)
+						{
+							optionName+="<option >"+data[i].name+"</option>";
+						}
+						
+							
+						
+						$("#name").append(optionName);
+					}
+					}
+					);
+					
+									
+			}
+			
+			$(document).ready(function(){
+				getQueryName(p);
+			});
+			
+			
+				
+			
+        </script>
+        <SCRIPT LANGUAGE="JavaScript">
+            <!--
+            var now = new Date();
+            startTime.value=now.getFullYear()+"/"+ (now.getMonth()+1)+"/"+now.getDate();
+            //-->
+        </SCRIPT>
+
+
+        <SCRIPT LANGUAGE="JavaScript">
+            <!--
+            var now = new Date();
+            endTime.value=now.getFullYear()+"/"+ (now.getMonth()+1)+"/"+now.getDate();
+            //-->
+        </SCRIPT>
+
+
+        <script src="../assets/js/footstep_common.js" type="text/javascript"></script>
+
     </body>
 
 </html>

@@ -92,7 +92,7 @@ public interface ReportMapper {
    List<ProjectAndPrp>findPapPrp();
    List<ProjectAndUser>findPauProject();
 
-   List<Report> findByNameAndDate(String name, Date startDate, Date endDate);
+   List<Report> findByNameAndDate(@Param("name") String name, @Param("startDate")Date startDate, @Param("endDate")Date endDate);
 
-   List<Report> findByProject(String project);
+   List<Report> findByProject(@Param("project")String project);
 }
