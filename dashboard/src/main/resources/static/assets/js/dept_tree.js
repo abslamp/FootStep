@@ -8,7 +8,7 @@ var labelReady=false;
 
 function notifyInfo(id) {
 	if(parseInt(id)==NaN) console.log("notifyInfo():Please specify the ID of department.");
-	$.getJSON("http://localhost:8888/department/id",{id : parseInt(id)},function(data){
+	$.getJSON("http://localhost:9002/department/id",{id : parseInt(id)},function(data){
 		//console.log(data);
 		$("#dept_form_leader").val(data.leader);
 		$("#dept_form_name").val(data.name);
@@ -50,7 +50,7 @@ function submitFormEdit() {
 	$(".help-block-error").remove();
 	$.ajax({
                 type: "POST",
-                url:"http://localhost:8888/department/update",
+                url:"http://localhost:9002/department/update",
                 data:$('#department_edit').serialize(),// 你的formid
                 error: function(request) {
                     alert("连接错误.");
@@ -72,7 +72,7 @@ function submitFormCreate() {
 	$(".help-block-error").remove();
 	$.ajax({
                 type: "POST",
-                url:"http://localhost:8888/department/insert",
+                url:"http://localhost:9002/department/insert",
                 data:$('#department_create').serialize(),// 你的formid
                 error: function(request) {
                     alert("连接错误.");
@@ -88,7 +88,7 @@ function submitFormCreate() {
 
 
 $(document).ready(function(){
-	$.getJSON("http://localhost:8888/department/all",null,function(data){
+	$.getJSON("http://localhost:9002/department/all",null,function(data){
 		$('#department_tree').jstree({
         'core': {
             'data': data,
@@ -103,7 +103,7 @@ $(document).ready(function(){
        });
         
 	});
-	$.getJSON("http://localhost:8888/department/alloptionlabel",null,function(data){
+	$.getJSON("http://localhost:9002/department/alloptionlabel",null,function(data){
 		deptLabelJson=data;
 		data.forEach(function(d){
 			deptLabelHtml+="<option value='"+d.id+"'>"+d.text+"</option>";

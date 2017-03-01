@@ -1,4 +1,4 @@
-var dataSource="http://localhost:8888/testu/samplemap"
+var dataSource="http://localhost:9002/testu/samplemap"
 
 Date.prototype.Format = function (fmt) { //author: meizz
     var o = {

@@ -3,12 +3,18 @@
         {
             var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)"); 
             if(arr=document.cookie.match(reg)){
-                alert(name+':'+unescape(arr[2]));
+                // alert(name+':'+unescape(arr[2]));
                 return unescape(arr[2]);
             }
             else{
                 return null;
             }
+        }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
         }
 
         function getUrlRank() {
@@ -37,8 +43,18 @@
                     rank = 100;
                     break;
             }
-            alert('rank:'+rank);
+            // alert('rank:'+rank);
             return rank;
+        }
+
+
+        function delCookie(name,path)
+        {
+            var exp = new Date();
+            exp.setTime(exp.getTime() - 1);
+            var cval=getCookie(name);
+            if(cval!=null)
+                document.cookie= name + "="+cval+";expires="+exp.toGMTString()+"; path="+path;
         }
 
 
@@ -50,4 +66,16 @@
             }
         }
 
+        function logout() {
+
+           
+            delCookie('username','/');
+            alert(getCookie('username'))
+            lock();
+       
+        }
+
+        function lock() {
+            delCookie('token','/');
+        }
         auth();
