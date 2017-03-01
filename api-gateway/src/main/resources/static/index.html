@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form>
+        <input id="userName" type="text" />
+        <input id="passWord" type="password" />
+        <input id="submit" type="button" value="Login" onclick="login()">
+    </form>
+</body>
+
+<script src="jquery-2.1.1.min.js"></script>
+<script src="jquery.cookie-1.4.1.min.js"></script>
+<script>
+    function login() {
+
+        var userName = document.getElementById("userName").value;
+        var passWord = document.getElementById("passWord").value;
+
+        $.ajax({
+            url: 'http://localhost:9000/login',
+            type: 'post',
+            data:{
+                "userName" : userName ,
+                "passWord" : passWord
+            },
+            success: function(data) {
+
+                switch (data.state){
+                    case "Not Found User":
+                        alert("Not Found User");
+                        break;
+                    case "You need provid password":
+                        alert("You need provid password");
+                        break;
+                    case "Not Found User":
+                        alert("Not Found User");
+                        break;
+                    case "PassWord Error":
+                        alert("PassWord Error");
+                        break;
+                    case "Success":
+//                        $.cookie('token', data.token, { expires: 7 });
+                        $.cookie('token', data.token);
+//userName
+//                        window.location.href = data.url;
+                        break;
+                }
+
+                console.log($.cookie('token'));
+            },
+            error: function(code, message, details) {
+                console.log(message);
+                console.log(code);
+                console.log(details);
+            }
+        });
+    }
+</script>
+</html>

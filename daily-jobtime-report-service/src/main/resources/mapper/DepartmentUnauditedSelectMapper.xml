@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.heu.soft.domain.DepartmentUnauditedSelectMapper">
+
+
+    <select id="QueryByDate"   resultType="edu.heu.soft.domain.DepartmentUnauditedSelect">
+
+
+select department,auditor,mailAddress,name,jmt from report where jmt between #{startTime} and #{endTime} and department=#{department} and state='未审核' ORDER BY jmt;
+
+    </select>
+
+
+    <select id="SelectByDate" resultType="edu.heu.soft.domain.DepartmentUnauditedSelect">
+
+
+        select department,auditor,mailAddress,name,jmt from report where jmt between #{startTime} and #{endTime} and department=#{department} and state='未审核' ORDER BY jmt limit #{offset},#{total};
+    </select>
+
+
+    <select id="getCount" parameterType="edu.heu.soft.domain.DepartmentUnauditedSelect" resultType="int">
+
+        select count(*) from report where jmt between #{startTime} and #{endTime} and department=#{department} and state='未审核';
+
+    </select>
+
+
+
+
+
+
+
+
+
+</mapper>

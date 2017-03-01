@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="timer.domain.DepartmentMapper">
+
+    <select id="findById" parameterType="long" resultType="timer.domain.Department">
+        SELECT * FROM DEPARTMENT WHERE ID=#{id} ORDER BY RANK ASC
+    </select>
+
+    <select id="findAll" resultType="timer.domain.Department">
+        SELECT * FROM DEPARTMENT
+    </select>
+
+    <select id="findByName" resultType="timer.domain.Department">
+        SELECT * FROM DEPARTMENT WHERE NAME = #{name}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO DEPARTMENT(NAME,LEADER,RANK,SUPERIORID,REMARK) VALUES (#{name},#{leader},#{rank},#{superiorId},#{remark})
+    </insert>
+
+    <update id="update">
+        UPDATE DEPARTMENT SET NAME=#{dept.name}, LEADER=#{dept.leader}, RANK=#{dept.rank}, SUPERIORID=#{dept.superiorId}, REMARK=#{dept.remark} WHERE ID=#{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM DEPARTMENT WHERE ID=#{id}
+    </delete>
+
+</mapper>

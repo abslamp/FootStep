@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.heu.soft.domain.DepartmentAllNumMapper">
+
+
+     <select id="Num" resultType="edu.heu.soft.domain.DepartmentAllNum">
+
+         select a.name,group_concat(a.project,":",a.tatol) as num from
+(select name ,project ,sum(workLoad)+sum(overTime) as tatol from report where department=#{department} and jmt between #{startTime} and #{endTime} group by name ,project order by name) a
+group by name;
+     </select>
+
+    <select id="SelectNum" resultType="edu.heu.soft.domain.DepartmentAllNum">
+
+select a.name,group_concat(a.project,":",a.tatol) as num from
+(select name ,project ,sum(workLoad)+sum(overTime) as tatol from report where department=#{department} and jmt between #{startTIme} and #{endTime} group by name ,project order by name) a
+group by name limit #{offset},#{total};
+
+    </select>
+
+
+    <select id="getCount" parameterType="edu.heu.soft.domain.DepartmentAllNum" resultType="int">
+
+
+
+select count(*)from
+(select a.name,group_concat(a.project,":",a.tatol) as projectinput from
+(select name ,project ,sum(workLoad)+sum(overTime) as tatol from report where department=#{department} and jmt between #{startTime} and #{endTime}  group by name ,project order by name) a
+group by name)b;
+
+    </select>
+
+
+
+
+
+</mapper>

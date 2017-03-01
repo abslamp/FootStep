@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.heu.soft.domain.PersonSelectByDateMapper">
+
+
+    <select id="QueryByDate"   resultType="edu.heu.soft.domain.PersonSelectByDate">
+
+        select jmt,workLoad,overTime,workLoad+overTime num From report where jmt between #{startTime} and #{endTime} and name=#{name};
+
+    </select>
+
+
+    <select id="SelectByDate" resultType="edu.heu.soft.domain.PersonSelectByDate">
+
+
+               select r.jmt,r.workLoad,r.overTime,r.workLoad+r.overTime num From report r where r.date between #{startTime} and #{endTime} and r.name=#{name} limit #{offset},#{total};
+    </select>
+
+
+    <select id="getCount" parameterType="edu.heu.soft.domain.PersonSelectByDate" resultType="int">
+
+       select count(*) From report r where r.jmt between #{startTime} and #{endTime} and r.name=#{name};
+    </select>
+
+
+
+
+
+
+
+
+
+</mapper>

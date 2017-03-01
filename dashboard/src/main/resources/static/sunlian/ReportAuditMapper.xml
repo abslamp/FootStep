@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.heu.soft.domain.ReportAuditMapper">
+    <update id="save">
+      UPDATE Report
+      <set>
+          <if test="jmt != null and jmt !=';">
+              jmt = #{jmt}
+          </if>
+          <if test="name != null and jmt !=';">
+              name = #{name}
+          </if>
+          <if test="overTime != null and jmt !=';">
+              overTime = #{overTime}
+          </if>
+          <if test="project != null and jmt !=';">
+              project = #{project}
+          </if>
+          <if test="state != null and jmt !=';">
+              state = #{state}
+          </if>
+          <if test="task != null and jmt !=';">
+              task = #{task}
+          </if>
+          <if test="workLoad != null and jmt !=';">
+              workLoad = #{workLoad}
+          </if>
+      </set>
+      WHERE id = #{id}
+    </update>
+
+    <select id="findByStateOrderByProjectAndName" resultType="edu.heu.soft.domain.Report">
+        SELECT * FROM REPORT WHERE (STATE = #{STATE}) ORDER BY PROJECT, NAME
+    </select>
+    <select id="findByNameAndStateAndDate" resultType="edu.heu.soft.domain.Report">
+        SELECT * FROM Report
+        <where>
+            <if test="name !=null and name != '' ">
+                AND NAME=#{name}
+            </if>
+            <if test="startDate != null and endDate != null ">
+                AND (JMT BETWEEN #{startDate} AND #{endDate})
+            </if>
+            <if test="state != null and state != ''">
+                AND (STATE = #{state})
+            </if>
+        </where>
+    </select>
+    <select id="findByNameAndDate" resultType="edu.heu.soft.domain.Report">
+        SELECT * FROM Report
+        <where>
+            <if test="name !=null and name != '' ">
+                AND NAME=#{name}
+            </if>
+            AND (JMT BETWEEN #{startDate} AND #{endDate})
+        </where>
+
+    </select>
+    <select id="findByProject" resultType="edu.heu.soft.domain.Report">
+        SELECT * FROM Report WHERE PORJECT = #{project}
+    </select>
+
+    <select id="findSubordinate" parameterType="String" resultType="String">
+        SELECT NAME FROM USER WHERE DEPARTMENT IN (SELECT DEPARTMENT FROM USER WHERE NAME=#{name}) AND ROLE = 3
+    </select>
+
+    <update id="audit">
+        UPDATE REPORT SET STATE=#{state} WHERE ID = #{id}
+    </update>
+
+
+     <!--<foreach item="item" index="index" collection="list" open="(" separator="," close=")">-->
+           <!--#{item}-->
+     <!--</foreach>-->
+
+</mapper>

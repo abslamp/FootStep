@@ -1,0 +1,1 @@
+ java -jar timed-reminder/target/timed-reminder-1.0-SNAPSHOT.jar

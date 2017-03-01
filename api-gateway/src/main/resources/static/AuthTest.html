@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form>
+    <input id="submit" type="button" value="AuthTest" onclick="test()">
+    <div id="board"></div>
+</form>
+</body>
+<script src="jquery-2.1.1.min.js"></script>
+<script src="jquery.cookie-1.4.1.min.js"></script>
+<script>
+    function showChat(message) {
+        var response = document.getElementById('board');
+        var p = document.createElement('p');
+        p.style.wordWrap = 'break-word';
+        p.appendChild(document.createTextNode(message.message));
+        response.appendChild(p);
+    }
+    function test() {
+
+        $.ajax({
+            url: 'http://localhost:9000/auth',
+            type: 'post',
+            data:{
+                "token" : $.cookie('token')
+            },
+            success: function(data) {
+                alert(data);
+                showChat(data);
+                showChat($.cookie('token'));
+
+            },
+            error: function(code, message, details) {
+                console.log(message);
+                console.log(code);
+                console.log(details);
+            }
+        });
+    }
+</script>
+
+</html>

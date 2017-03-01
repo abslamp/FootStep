@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.heu.soft.domain.SelectPeopleMapper">
+
+
+
+    <select id="findUser" resultType="edu.heu.soft.domain.User">
+        SELECT ID,DEPARTMENT,NAME,GENDER,ROLE,EDU FROM USER
+
+
+        <where>
+            <if test="id!=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="department!=null and department!=''">
+                AND department=#{department}
+            </if>
+
+            <if test="name!=null and name!=''">
+                AND name=#{name}
+            </if>
+            <if test="gender!=null and gender!=''">
+                AND gender=#{gender}
+            </if>
+            <if test="role!=null">
+                AND role=#{role}
+            </if>
+            <if test="edu!=null and edu!=''">
+                AND edu=#{edu}
+            </if>
+        </where>
+
+        <if test="offset+total!=0">
+            LIMIT #{offset},#{total}
+        </if>
+
+    </select>
+
+    <select id="getCount"  resultType="int">
+        SELECT COUNT(*)  FROM USER
+
+        <where>
+            <if test="department!=null and department!=''">
+                AND department=#{department}
+            </if>
+
+            <if test="name!=null and name!=''">
+                AND name=#{name}
+            </if>
+            <if test="gender!=null and gender!=''">
+                AND gender=#{gender}
+            </if>
+            <if test="role!=null and role!=''">
+                AND role=#{role}
+            </if>
+            <if test="edu!=null and edu!=''">
+                AND edu=#{edu}
+            </if>
+        </where>
+
+    </select>
+    <select id="findUserDepartment" parameterType="string" resultType="edu.heu.soft.domain.User">
+        SELECT DISTINCT department FROM USER
+
+    </select>
+    <select id="findUserEdu" parameterType="string" resultType="edu.heu.soft.domain.User">
+
+        SELECT distinct edu FROM USER
+
+    </select>
+
+
+    <insert id="insertPeople">
+        INSERT INTO user(password,department,name,gender,role,edu) VALUES(#{password},#{department},#{name},#{gender},#{role},#{edu})
+    </insert>
+
+
+    <delete id="deletePeople">
+        DELETE FROM user WHERE id =#{id}
+    </delete>
+
+    <update id="updatePeople">
+            UPDATE USER SET department=#{department},role=#{role},edu=#{edu},password=#{password} where name=#{name}
+    </update>
+
+</mapper>

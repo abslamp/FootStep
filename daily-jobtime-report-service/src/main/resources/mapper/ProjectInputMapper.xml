@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.heu.soft.domain.ProjectInputMapper">
+
+
+    <select id="findInput" resultType="edu.heu.soft.domain.ProjectInput">
+
+        select a.department , group_concat(a.prp,":",a.total) as total from
+        (select department ,prp,sum(workLoad)+sum(overTime) as total from report
+
+        <if test="project!=null and project!=''">where project=#{project} </if>
+
+        group by department,prp order by department) a
+        group by department
+
+    </select>
+
+    <select id="getCount"  resultType="int">
+
+
+       select COUNT(*) from
+(select department ,prp,sum(workLoad)+sum(overTime) as total from report where project=#{project} group by department,prp order by department) a
+
+
+    </select>
+
+    <select id="findReportProject" resultType="edu.heu.soft.domain.Report">
+        SELECT DISTINCT project FROM report
+
+    </select>
+
+
+</mapper>

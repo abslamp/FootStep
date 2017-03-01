@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.heu.soft.domain.ReportMapper">
+
+    <select id="findReport" resultType="edu.heu.soft.domain.Report">
+        SELECT *  FROM REPORT
+
+            <if test="cond!=null">
+                <where>
+                    <if test="start!=null and end!=null ">
+                        JMT BETWEEN #{start} AND #{end}
+                    </if>
+
+                    <if test="cond.project!=null and cond.project!=''">
+                        AND project=#{cond.project}
+                    </if>
+                    <if test="cond.prp!=null and cond.prp!=''">
+                        AND prp=#{cond.prp}
+                     </if>
+
+                    <if test="cond.task!=null and cond.task!=''">
+                        AND task=#{cond.task}
+                    </if>
+                    <if test="cond.state!=null and cond.state!=''">
+                        AND state=#{cond.state}
+                    </if>
+
+                </where>
+
+            </if>
+
+
+        LIMIT #{offset},#{total}
+    </select>
+
+
+    <select id="getCount"  resultType="int">
+        SELECT COUNT(*)  FROM REPORT
+
+        <where>
+
+            <if test="cond.jmt!=null and cond.date!=''">
+                AND jmt=#{cond.jmt}
+            </if>
+
+        <if test="cond.project!=null and cond.project!=''">
+            AND project=#{cond.project}
+            </if>
+            <if test="cond.prp!=null and cond.prp!=''">
+            AND prp=#{cond.prp}
+            </if>
+
+        <if test="cond.task!=null and cond.task!=''">
+            AND task=#{cond.task}
+        </if>
+        <if test="cond.state!=null and cond.state!=''">
+            AND state=#{cond.state}
+        </if>
+        </where>
+
+    </select>
+
+    <select id="findReportProject" resultType="edu.heu.soft.domain.Report">
+        SELECT  distinct project FROM report
+
+    </select>
+
+    <select id="findReportPrp" resultType="edu.heu.soft.domain.Report">
+        SELECT distinct prp FROM report
+
+    </select>
+    <delete id="delete">
+        DELETE FROM REPORT WHERE id =#{id}
+    </delete>
+    <select id="findPapPrp" resultType="edu.heu.soft.domain.ProjectAndPrp">
+    SELECT  DISTINCT prpName FROM ProjectAndPrp
+
+    </select>
+    <select id="findPauProject" resultType="edu.heu.soft.domain.ProjectAndUser">
+        SELECT DISTINCT project FROM ProjectAndUser
+
+    </select>
+
+    <insert id="insert">
+        INSERT INTO REPORT(name, PROJECT,TASK,JMT,WORKLOAD,OVERTIME,PRP) VALUES(#{name}, #{project}, #{task}, #{jmt}, #{workLoad}, #{overTime},  #{prp})
+    </insert>
+    <update id="update">
+        UPDATE REPORT SET jmt= #{jmt}, project= #{project},prp= #{prp},task= #{task} ,workLoad= #{workLoad},overTime= #{overTime} WHERE id = #{id}
+    </update>
+    <select id="findById" parameterType="java.lang.Long" resultType="edu.heu.soft.domain.Report">
+    SELECT * from Report WHERE id=#{id}
+    </select>
+    <select id="findByNameAndDate" resultType="edu.heu.soft.domain.Report">
+        SELECT * FROM REPort
+         <where>
+             <if test="name != null and name == ''">
+                 AND Name = #{name}
+             </if>
+             AND (JMT BETWEEN #{startDate} AND #{endDate})
+         </where>
+    </select>
+    <select id="findByProject" resultType="edu.heu.soft.domain.Report">
+        SELECT * FROM REPort WHERE PORJECT = #{project}
+    </select>
+
+
+</mapper>
