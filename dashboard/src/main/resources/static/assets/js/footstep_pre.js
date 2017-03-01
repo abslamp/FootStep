@@ -67,12 +67,8 @@
         }
 
         function logout() {
-
-           
             delCookie('username','/');
-            alert(getCookie('username'))
             lock();
-       
         }
 
         function lock() {

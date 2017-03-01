@@ -38,13 +38,38 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             LoginResponse response = new LoginResponse();
             response.setState("Success");
             response.setToken(TokenUtils.generateToken(user, Constant.MILLISECOND_ONE_DAY,"RSA"));
-            response.setUrl("https://www.baidu.com/");
+            response.setUrl(getIndexUrl(user.getRole()));
             response.setRole(user.getRole());
             return response;
         } else {
             return new LoginResponse("PassWord Error");
         }
 
+    }
+
+    private String getIndexUrl(int role) {
+
+        String res = null;
+
+        switch (role){
+            case 0 :
+                res = "http://localhost:9001/admin/index.html";
+                break;
+            case 1 :
+                res = "http://localhost:9001/boss/index.html";
+                break;
+            case 2 :
+                res = "http://localhost:9001/leader/index.html";
+                break;
+            case 3 :
+                res = "http://localhost:9001/employee/index.html";
+                break;
+            default:
+                res = "http://localhost:9001/common/500.html";
+                break;
+        }
+
+        return res;
     }
 
     @Override
