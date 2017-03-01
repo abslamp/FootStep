@@ -17,5 +17,6 @@ public interface ReportAuditService {
     List<Report> queryBySubordinate(String leaderName, String state, Date startDate, Date endDate);
     int update(Report report);
     List<String> querySubordinate(String leaderName);
+    List<String> queryEveryone();
     int audit(List<Integer> id, String state);
 }

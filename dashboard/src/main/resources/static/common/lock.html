@@ -46,7 +46,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
-    <body class="">
+    <body class="" onload="$('#userName').text($.cookie('username'));">
         <div class="page-lock">
             <div class="page-logo">
                 <a class="brand" href="../index.html">
@@ -55,16 +55,15 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="page-body">
                 <img class="page-lock-img" src="../assets/pages/media/profile/profile.jpg" alt="">
                 <div class="page-lock-info">
-                    <h1>Bob Nilson</h1>
-                    <span class="email"> bob@keenthemes.com </span>
+                    <h1 id="userName"></h1>
                     <span class="locked"> Locked </span>
-                    <form class="form-inline" action="../index.html">
+                    <form class="form-inline">
                         <div class="input-group input-medium">
-                            <input type="text" class="form-control" placeholder="Password">
+                            <input type="text" class="form-control" placeholder="Password" id="passWord">
                             <span class="input-group-btn">
-                                <button type="submit" class="btn green icn-only">
+                                <input type="button"  class="btn green icn-only" onclick="login()">
                                     <i class="m-icon-swapright m-icon-white"></i>
-                                </button>
+                                </input>
                             </span>
                         </div>
                         <!-- /input-group -->
@@ -74,7 +73,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </form>
                 </div>
             </div>
-            <div class="page-footer-custom"> 2014 &copy; Metronic. Admin Dashboard Template. </div>
+            <div class="page-footer-custom"> 2017 © FootStep. Dashboard.  </div>
         </div>
         <!--[if lt IE 9]>
 <script src="../assets/global/plugins/respond.min.js"></script>
@@ -98,6 +97,59 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <script src="../assets/pages/scripts/lock-2.min.js" type="text/javascript"></script>
+
+        <script src="../assets/js/jquery.cookie-1.4.1.min.js"></script>
+        <script>
+            function login() {
+
+                var userName = $.cookie('username');
+
+                var passWord = document.getElementById("passWord").value;
+
+                $.ajax({
+                    url: 'http://localhost:9000/login',
+                    type: 'post',
+                    data:{
+                        "userName" : userName ,
+                        "passWord" : passWord
+                    },
+                    success: function(data) {
+
+                        switch (data.state){
+                            case "Not Found User":
+                                alert("Not Found User");
+                                break;
+                            case "You need provid password":
+                                alert("You need provid password");
+                                break;
+                            case "Not Found User":
+                                alert("Not Found User");
+                                break;
+                            case "PassWord Error":
+                                alert("PassWord Error");
+                                break;
+                            case "Success":
+                                //                        $.cookie('token', data.token, { expires: 7 });
+                                $.cookie('token', data.token , { path: '/'});
+                                $.cookie('username', userName , { path: '/'});
+                                $.cookie('role', data.role , { path: '/'});
+
+                                //userName
+                                window.location.href = data.url;
+//                                alert(data.url);
+                                break;
+                        }
+                        console.log($.cookie('token'));
+                        console.log($.cookie('username'));
+                    },
+                    error: function(code, message, details) {
+                        console.log(message);
+                        console.log(code);
+                        console.log(details);
+                    }
+                });
+            }
+        </script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <!-- END THEME LAYOUT SCRIPTS -->

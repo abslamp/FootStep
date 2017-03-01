@@ -19,7 +19,7 @@ public interface DepartmentUnauditedSelectService {
     * @param department 部门
     * @return List<DepartmentUnauditedSelect> QueryByDate 返回未审核部门值 作为数据源
     */
-    List<DepartmentUnauditedSelect> QueryByDate(Date startTime, Date endTime, String department);
+    List<DepartmentUnauditedSelect> QueryByDate(Date startTime, Date endTime, String department, int page);
 
     /*
     *

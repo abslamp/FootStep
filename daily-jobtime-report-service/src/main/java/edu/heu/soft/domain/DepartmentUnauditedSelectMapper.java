@@ -19,7 +19,7 @@ public interface DepartmentUnauditedSelectMapper {
     * @param department 部门
     */
 
-    List<DepartmentUnauditedSelect> QueryByDate(@Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("department") String department);
+    List<DepartmentUnauditedSelect> QueryByDate(@Param("startTime") Date startTime, @Param("endTime") Date endTime, @Param("department") String department, @Param("offset") int offset, @Param("total") int total);
 
     /*
     *

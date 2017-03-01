@@ -1,4 +1,7 @@
-            var totalPage=0;
+
+
+
+var totalPage=0;
             
             var currentSubmitData="";
 
@@ -312,11 +315,16 @@
 			}
 			
 
-
             $(document).ready(function(){
+                $.ajaxSetup({
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    crossDomain: true
+                });
             	var username=$.cookie("username");
             	console.log(username);
-            	ajaxSimpleSelectBox("name_select","http://localhost:9002/audit/subordinate",{name:username},"全部","");
+            	ajaxSimpleSelectBox("name_select","http://localhost:9002/audit/subordinate",null,"全部","");
 
 
             });

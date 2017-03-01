@@ -31,6 +31,14 @@ public class DepartmentUnauditedSelectServiceImpl implements DepartmentUnaudited
     *
     */
 
+
+    @Override
+    public List<DepartmentUnauditedSelect> QueryByDate(Date startTime,Date endTime,String department,int page){
+        int offset = (page-1)*pageSize;
+
+        return Mapper.QueryByDate(startTime,endTime,department,offset,pageSize);
+
+    }
     /*
     *
     * @param DepartmentSelect 数据源
@@ -40,19 +48,6 @@ public class DepartmentUnauditedSelectServiceImpl implements DepartmentUnaudited
     * @param SelectNum 返回所需要的分页查询结果
     */
 
-    /*
-    *
-    * @param startTime 开始时间
-    * @param endTime 截止时间
-    * @param department 部门
-     */
-
-    @Override
-    public List<DepartmentUnauditedSelect> QueryByDate(Date startTime,Date endTime,String department){
-
-        return Mapper.QueryByDate(startTime,endTime,department);
-
-    }
 
     @Override
     public List<DepartmentUnauditedSelect> SelectByDate(DepartmentUnauditedSelect DepartmentSelect,Integer page) {
@@ -61,6 +56,12 @@ public class DepartmentUnauditedSelectServiceImpl implements DepartmentUnaudited
         return Mapper.SelectByDate(DepartmentSelect,offset,pageSize);
 
     }
+    /*
+    *
+    * @param startTime 开始时间
+    * @param endTime 截止时间
+    * @param department 部门
+     */
 
     @Override
     public int getCount(Date startTime,Date endTime,String department){

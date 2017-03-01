@@ -1,4 +1,4 @@
-var dataSource="http://localhost:9002/testu/samplemap"
+var dataSource="http://localhost:9002/unfinished/department"
 
 Date.prototype.Format = function (fmt) { //author: meizz
     var o = {
@@ -26,7 +26,7 @@ function dateMinus(dd,dadd){ //foreign code
 }
 
 function mktable() {
-	var currentUser;// = $.cookie('userName');
+	var currentUser = $.cookie('username');
 	$.getJSON(dataSource,{name:currentUser},function(data){
 	
 		//表头表体字符串的创建

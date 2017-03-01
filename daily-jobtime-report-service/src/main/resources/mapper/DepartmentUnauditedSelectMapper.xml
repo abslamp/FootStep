@@ -9,15 +9,26 @@
     <select id="QueryByDate"   resultType="edu.heu.soft.domain.DepartmentUnauditedSelect">
 
 
-select department,auditor,mailAddress,name,jmt from report where jmt between #{startTime} and #{endTime} and department=#{department} and state='未审核' ORDER BY jmt;
+select department,auditor,mailAddress,name,jmt from report where jmt between #{startTime} and #{endTime} and department=#{department} and state='未审核' ORDER BY jmt
 
+        <if test="offset+total != 0">
+            limit #{offset},#{total};
+        </if>
     </select>
 
 
     <select id="SelectByDate" resultType="edu.heu.soft.domain.DepartmentUnauditedSelect">
 
 
-        select department,auditor,mailAddress,name,jmt from report where jmt between #{startTime} and #{endTime} and department=#{department} and state='未审核' ORDER BY jmt limit #{offset},#{total};
+        select department,auditor,mailAddress,name,jmt
+
+        from report where jmt
+
+        between #{startTime} and #{endTime} and department=#{department} and state='未审核' ORDER BY jmt
+
+        <if test="offset+total != 0">
+            limit #{offset},#{total};
+        </if>
     </select>
 
 

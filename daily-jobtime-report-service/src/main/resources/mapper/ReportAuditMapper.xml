@@ -64,6 +64,10 @@
         SELECT NAME FROM USER WHERE DEPARTMENT IN (SELECT DEPARTMENT FROM USER WHERE NAME=#{name}) AND ROLE = 3
     </select>
 
+    <select id="findEveryone" parameterType="String" resultType="String">
+        SELECT NAME FROM USER
+    </select>
+
     <update id="audit">
         UPDATE REPORT SET STATE=#{state} WHERE ID = #{id}
     </update>

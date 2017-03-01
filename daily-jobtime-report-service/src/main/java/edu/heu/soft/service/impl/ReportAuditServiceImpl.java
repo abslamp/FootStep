@@ -85,6 +85,11 @@ public class ReportAuditServiceImpl implements ReportAuditService {
     }
 
     @Override
+    public List<String> queryEveryone() {
+        return reportMapper.findEveryone();
+    }
+
+    @Override
     public int audit(List<Integer> id, String state) {
         if(!state.equals(AUDITED) && !state.equals(REJECTED)){
             return 0;

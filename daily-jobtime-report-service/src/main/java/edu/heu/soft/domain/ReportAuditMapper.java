@@ -15,6 +15,7 @@ public interface ReportAuditMapper {
     List<Report> findByNameAndDate(@Param("name") String name, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
     int save(Report report);
     List<String> findSubordinate(String name);
+    List<String> findEveryone();
     int audit(@Param("id") int id, @Param("state") String state);
 
 }

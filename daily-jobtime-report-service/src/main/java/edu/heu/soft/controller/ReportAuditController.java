@@ -96,8 +96,10 @@ public class ReportAuditController {
     List<String> getSubordinate(HttpServletRequest request,String name) {
         if (name == null || name.equals("")) {
             String leaderName = null;
+            String role;
             try {
                 leaderName = CookieUtils.findCookieByName("username",request).getValue();
+                role = CookieUtils.findCookieByName("role",request).getValue();
             } catch (Exception e) {
                 return null;
             }
@@ -105,10 +107,18 @@ public class ReportAuditController {
                 leaderName = java.net.URLDecoder.decode(leaderName,"UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-
+            }
+            int roleNum=0;
+            try {
+                roleNum = Integer.parseInt(role);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
             }
             System.out.println(leaderName);
-            return service.querySubordinate(leaderName);
+
+            if(roleNum == 1) return service.queryEveryone();
+            else if(roleNum == 2) return service.querySubordinate(leaderName);
+            else return new ArrayList<>();
         } else {
             return service.querySubordinate(name);
         }

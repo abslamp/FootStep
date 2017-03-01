@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by new on 17-2-26.
@@ -34,12 +35,13 @@ public class DepartmentUnauditedSelectController {
 
 
     @RequestMapping(value = "/select")
-    public List<DepartmentUnauditedSelect> queryByDate(Date startTime, Date endTime, String department){
-        System.out.println(startTime.toString());
-        System.out.println(endTime.toString());
-        System.out.println(department);
+    public List<DepartmentUnauditedSelect> queryByDate(Date startTime, Date endTime, String department,Integer page){
+//        System.out.println(startTime.toString());
+//        System.out.println(endTime.toString());
+//        System.out.println(department);
+        if(page==null) page=0;
 
-        List<DepartmentUnauditedSelect> datas = service.QueryByDate(startTime,endTime,department);
+        List<DepartmentUnauditedSelect> datas = service.QueryByDate(startTime,endTime,department,page);
 
         return datas;
     }
@@ -55,7 +57,6 @@ public class DepartmentUnauditedSelectController {
     @RequestMapping(value = "/work")
     public List<DepartmentUnauditedSelect> selectByDate( DepartmentUnauditedSelect DepartmentSelect,Integer page){
 
-
         return service.SelectByDate(DepartmentSelect,page);
 
 
@@ -70,9 +71,11 @@ public class DepartmentUnauditedSelectController {
     */
     @RequestMapping(value = "/rows")
 
-    public int rowsCount(Date startTime,Date endTime,String department)
+    public int rowsCount(Date startTime, Date endTime, String department)
     {
-        return service.getCount(startTime,endTime,department);
+
+        List<DepartmentUnauditedSelect> aaa = service.QueryByDate(startTime,endTime,department,0);
+        return service.QueryByDate(startTime,endTime,department,0).size();
     }
 
 }
