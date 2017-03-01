@@ -9,7 +9,6 @@
         <module name="api-gateway" />
         <module name="daily-jobtime-report-service" />
         <module name="dashboard" />
-        <module name="demo" />
         <module name="timer-reminder" />
       </profile>
     </annotationProcessing>

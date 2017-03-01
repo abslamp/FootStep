@@ -17,7 +17,6 @@
     </parent>
 
     <modules>
-        <module>demo</module>
         <module>daily-jobtime-report-service</module>
         <module>api-gateway</module>
         <module>timer-reminder</module>
