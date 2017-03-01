@@ -3,6 +3,7 @@
         {
             var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)"); 
             if(arr=document.cookie.match(reg)){
+                alert(name+':'+unescape(arr[2]));
                 return unescape(arr[2]);
             }
             else{
@@ -32,7 +33,11 @@
                 case "common" :
                     rank = 1000000;
                     break;
+                default:
+                    rank = 100;
+                    break;
             }
+            alert('rank:'+rank);
             return rank;
         }
 

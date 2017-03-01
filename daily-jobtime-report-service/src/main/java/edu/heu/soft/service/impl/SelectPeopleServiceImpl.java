@@ -51,8 +51,13 @@ public class SelectPeopleServiceImpl implements SelectPeopleService {
         mapper.deletePeople(id);
     }
     @Override
-    public void updatePeople(String password,String department,String name,String gender,int role,String edu)
+    public void updatePeople(Long id,String password,String department,String name,String gender,int role,String edu)
     {
-        mapper.updatePeople(password,department,name,gender,role,edu);
+        mapper.updatePeople(id,password,department,name,gender,role,edu);
     }
+    @Override
+    public User queryUserName(Long id){
+        return mapper. findUserName(id);
+    }
+
 }

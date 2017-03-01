@@ -96,9 +96,15 @@ public class SelectPeopleController {
      * @return
      */
     @RequestMapping(value = "/update" )
-    public void updatePeople(String password,String department,String name,String gender,int role,String edu )
+    public void updatePeople(Long id,String password,String department,String name,String gender,int role,String edu )
     {
-        service.updatePeople(password,department,name,gender,role,edu);
+        service.updatePeople(id,password,department,name,gender,role,edu);
     }
+    @RequestMapping(value = "/name")
 
+   User queryUserName(Long id){
+
+
+        return service.queryUserName(id);
+    }
 }

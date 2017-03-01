@@ -15,5 +15,6 @@ public interface SelectPeopleMapper {
 
     int insertPeople(@Param("password") String password, @Param("department") String department, @Param("name") String name, @Param("gender") String gender, @Param("role") int role, @Param("edu") String edu);
     void deletePeople(@Param("id") Long id);
-    void updatePeople(@Param("password") String password, @Param("department") String department, @Param("name") String name, @Param("gender") String gender, @Param("role") int role, @Param("edu") String edu);
+    void updatePeople(@Param("id") Long id, @Param("password") String password, @Param("department") String department, @Param("name") String name, @Param("gender") String gender, @Param("role") int role, @Param("edu") String edu);
+    User findUserName(@Param("id") Long id);
 }

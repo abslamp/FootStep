@@ -17,6 +17,6 @@ public interface SelectPeopleService {
 
  String insertPeople(User user);
  void deletePeople(Long id);
- void updatePeople(String password, String department, String name, String gender, int role, String edu);
-
+ void updatePeople(Long id, String password, String department, String name, String gender, int role, String edu);
+ User queryUserName(Long id);
 }
