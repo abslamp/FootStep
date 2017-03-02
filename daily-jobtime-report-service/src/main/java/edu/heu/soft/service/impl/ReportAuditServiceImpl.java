@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 public class ReportAuditServiceImpl implements ReportAuditService {
 
-    public static String AUDITED = "已审核";
+    public static String AUDITED = "已通过";
     public static String REJECTED = "未通过";
 
     @Autowired

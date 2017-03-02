@@ -26,8 +26,8 @@ public class UnfinishedReportController {
     }
 
     @GetMapping("/department")
-    Map<String,List<Date>> querybyDepartment(String departmentName){
-        return service.queryDepartment(departmentName);
+    Map<String,List<Date>> querybyDepartment(String leaderName){
+        return service.queryDepartment(leaderName);
     }
 
 }

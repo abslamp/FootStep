@@ -29,6 +29,15 @@ public class DepartmentAllNumServiceImpl implements DepartmentAllNumService{
     *
     */
 
+
+    @Override
+    public List<DepartmentAllNum>Num(Date startTime,Date endTime,String department){
+
+        return mapper.Num(startTime,endTime,department);
+    }
+
+
+
     /*
     *
     * @param Num 数据源
@@ -38,19 +47,6 @@ public class DepartmentAllNumServiceImpl implements DepartmentAllNumService{
     * @param SelectNum 返回所需要的分页查询结果
     */
 
-    /*
-    *
-    * @param startTime 开始时间
-    * @param endTime 截止时间
-    * @param department 部门
-     */
-
-
-    @Override
-    public List<DepartmentAllNum>Num(Date startTime,Date endTime,String department){
-
-        return mapper.Num(startTime,endTime,department);
-    }
 
     @Override
     public List<DepartmentAllNum>SelectNum (DepartmentAllNum Num,Integer page)
@@ -60,6 +56,13 @@ public class DepartmentAllNumServiceImpl implements DepartmentAllNumService{
 
     }
 
+
+    /*
+    *
+    * @param startTime 开始时间
+    * @param endTime 截止时间
+    * @param department 部门
+     */
     @Override
     public int getCount(Date startTime,Date endTime,String department){
 

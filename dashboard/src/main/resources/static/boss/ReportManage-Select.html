@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />         <script src="../assets/js/footstep_pre.js" type="text/javascript"></script>
-        <title>Metronic | Ajax Datatables</title>
+        <title>日报管理 | FootStep</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -50,12 +50,17 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="../assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
         <link href="../assets/layouts/layout2/css/custom.min.css" rel="stylesheet" type="text/css" />
-        
+        <style>
+            thead th{
+                text-align: center;
+            }
+        </style>
+
         <!-- END THEME LAYOUT STYLES -->
         <!--<link rel="shortcut icon" href="favicon.ico" /> </head>-->
     <!-- END HEAD -->
 
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+    <body onload="$('#userName').text($.cookie('username'));reminder($.cookie('username'));" class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
@@ -134,7 +139,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-bell"></i>
-                                    <span class="badge badge-default"> 7 </span>
+                                    <span class="badge badge-default" id="reminderNumber"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="external">
@@ -143,7 +148,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <a href="page_user_profile_1.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 250px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="javascript:;">
                                                     <span class="time">just now</span>
@@ -244,7 +249,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <a href="app_inbox.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 275px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
@@ -319,7 +324,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <a href="app_todo.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 275px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="javascript:;">
                                                     <span class="task">
@@ -421,7 +426,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <img alt="" class="img-circle" src="../assets/layouts/layout2/img/avatar3_small.jpg" />
-                                    <span class="username username-hide-on-mobile"> Nick </span>
+                                    <span class="username username-hide-on-mobile" id="userName"> </span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
@@ -499,17 +504,24 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a href="audit_report.html" class="nav-link nav-toggle">
                                 <i class="icon-check"></i>
                                 <span class="title">日报审核</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="javascript:;" class="nav-link nav-toggle">
+                        <li class="nav-item active">
+                            <a href="ReportManage-Select.html" class="nav-link nav-toggle">
                                 <i class="icon-layers"></i>
                                 <span class="title">公司日报管理</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="department_unatuditedselect.html" class="nav-link nav-toggle">
+                                <i class="icon-question"></i>
+                                <span class="title">未审核日报查询</span>
                                 <span class="arrow"></span>
                             </a>
                         </li>
@@ -533,11 +545,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <li class="nav-item">
                                     <a href="PersonSelectByProject.html" class="nav-link ">
                                         <span class="title">项目工作量</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="person_seleectbydate.html" class="nav-link ">
-                                        <span class="title">部门工作量</span>
                                     </a>
                                 </li>
                             </ul>
@@ -667,49 +674,18 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                     <!-- END THEME PANEL -->
-                    <h3 class="page-title"> Ajax Datatables
-                        <small>basic datatable samples</small>
+                    <h3 class="page-title"> 日报管理
+                        <small></small>
                     </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="icon-home"></i>
-                                <a href="../index.html">Home</a>
-                                <i class="fa fa-angle-right"></i>
+                                <a href="index.html">公司日报管理</a>
                             </li>
-                            <li>
-                                <a href="#">Tables</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <span>Datatables</span>
-                            </li>
+
                         </ul>
                         <div class="page-toolbar">
-                            <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bell"></i> Action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-shield"></i> Another action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-user"></i> Something else here</a>
-                                    </li>
-                                    <li class="divider"> </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bag"></i> Separated link</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                     <!-- END PAGE HEADER-->
@@ -724,65 +700,60 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <div class="form-group">
                                     <form id="footstep_form">
-                                        <label class="col-md-1 control-label font-dark">查询日期</label>
-                                        <div class="col-md-5">
-                                            <div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy/mm/dd">
-                                                            <input type="text" class="form-control form-filter input-sm" readonly id="order_date_from" placeholder="From">
-                                                            <span class="input-group-btn">
+                                        <div class="row">
+                                            <label class="col-md-1 control-label font-dark" style="padding-right: 0px;">查询日期</label>
+                                            <div class="col-md-5">
+                                                <div class="input-group date date-picker margin-bottom-5" data-date-format="yyyy/mm/dd">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly id="order_date_from" placeholder="From">
+                                                    <span class="input-group-btn">
                                                                 <button class="btn btn-sm default" type="button">
                                                                     <i class="fa fa-calendar"></i>
                                                                 </button>
-                                                            </span>
-                                                        </div>
-                                                        <div class="input-group date date-picker" data-date-format="yyyy/mm/dd">
-                                                            <input type="text" class="form-control form-filter input-sm" readonly id="order_date_to" placeholder="To">
-                                                            <span class="input-group-btn">
-                                                                <button class="btn btn-sm default" type="button">
-                                                                    <i class="fa fa-calendar"></i>
-                                                                </button>
-                                                            </span>
-                                                        </div>
-                                            
+                                                    </span>
+                                                </div>
+                                                <div class="input-group date date-picker" data-date-format="yyyy/mm/dd">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly id="order_date_to" placeholder="To">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-sm default" type="button">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <label class="col-md-1 control-label font-dark">项目</label>
+                                            <div class="col-md-5">
+                                                <select id="projectSelect" class="form-control form-filter input-sm">
+                                                </select>
+                                            </div>
+                                            <label class="col-md-1 control-label font-dark" style="padding-right: 0px;">PRP阶段</label>
+                                            <div class="col-md-5">
+                                                <select id="prpSelect" class="form-control form-filter input-sm">
+                                                </select>
+                                            </div>
                                         </div>
-                                        <label class="col-md-1 control-label font-dark">项目</label><div class="col-md-5">
-                                             <select id="projectSelect" class="form-control form-filter input-sm">
-                                                           
-                                                           
-                                                        </select>
-                                            
-                                            
-                                            
-       
-                                     </div>
- <label class="col-md-1 control-label font-dark">PRP阶段</label><div class="col-md-5">
- 
- <select id="prpSelect" class="form-control form-filter input-sm">
-                                                            
-                                                        </select>
-                                            
- 
- </div><label class="col-md-1 control-label font-dark">审核状态</label><div class="col-md-5">
-  <select id="statusSelect" class="form-control form-filter input-sm">
-                                                            
-                                                            <option value="通过">通过</option>
-                                                            <option >已审核</option>
-                                                            <option >未审核</option>
-                                                            
-                                                        </select>
- 
- </div>
- <label class="col-md-1 control-label font-dark">任务</label><div class="col-md-5">
-  <input type="text" class="form-control form-filter input-sm" id="order_mession"> </div>
-   
-                                        
-   
+                                        <div class="row">
+                                            <label class="col-md-1 control-label font-dark" style="padding-right: 0px;">审核状态</label>
+                                            <div class="col-md-5">
+                                                <select id="statusSelect" class="form-control form-filter input-sm">
+
+                                                    <option >已通过</option>
+                                                    <option >未通过</option>
+                                                    <option >未审核</option>
+
+                                                </select>
+
+                                            </div>
+                                            <label class="col-md-1 control-label font-dark">任务</label>
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control form-filter input-sm" id="order_mession">
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                                 <div align="right">
-					<a href="javascript:$('#footstep_form')[0].reset()"><button type="button" class="btn btn-default">清空</button></a>
-					<a href="javascript:btnQuery()"><button type="button" class="btn btn-primary">查询</button></a>
-                                        <a href="日报管理-Add.html"><button type="button" class="btn btn-success" >增加</button></a>
-				</div>
+					                <a href="javascript:$('#footstep_form')[0].reset()"><button type="button" class="btn btn-default">清空</button></a>
+					                <a href="javascript:btnQuery()"><button type="button" class="btn btn-primary">查询</button></a>
+				                </div>
                                 <p>　</p>
                             </div>
                             
@@ -876,7 +847,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-social-dribbble font-green"></i>
-                                        <span class="caption-subject font-green bold uppercase">Simple Table</span>
+                                        <span class="caption-subject font-green bold uppercase">查询结果</span>
                                     </div>
                                     <div class="actions">
                                         <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
@@ -1506,7 +1477,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN CORE PLUGINS -->
         <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="../assets/js/jquery.cookie-1.4.1.min.js"></script>
         <script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>

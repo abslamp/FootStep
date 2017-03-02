@@ -27,7 +27,7 @@ function dateMinus(dd,dadd){ //foreign code
 
 function mktable() {
 	var currentUser = $.cookie('username');
-	$.getJSON(dataSource,{name:currentUser},function(data){
+	$.getJSON(dataSource,{leaderName:currentUser},function(data){
 	
 		//表头表体字符串的创建
 		var today = new Date();

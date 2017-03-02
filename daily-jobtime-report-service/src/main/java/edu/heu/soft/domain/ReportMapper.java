@@ -66,9 +66,9 @@ import java.util.List;
     * @Param Date jmt 日期
     * @Param String project,
     * @Param String prp
-    * @Param String task,
     * @Param double workLoad,
     * @Paramdouble overTime
+    * @Param String task,
     * @return Report
      */
 
@@ -85,14 +85,14 @@ public interface ReportMapper {
    int getCount(@Param("start") Date start, @Param("end") Date end, @Param("cond") Report cond);
    List<Report> findReportProject();
    List<Report> findReportPrp();
-   int insert(@Param("jmt") Date jmt, @Param("name") String name, @Param("project") String project, @Param("task") String task, @Param("prp") String prp, @Param("workLoad") double workLoad, @Param("overTime") double overTime);
+   int insert(@Param("name") String name, @Param("project") String project, @Param("task") String task, @Param("jmt") Date jmt, @Param("workLoad") double workLoad, @Param("overTime") double overTime, @Param("prp") String prp);
    void delete(@Param("id") Long id);
    void update(@Param("id") Long id, @Param("jmt") Date jmt, @Param("project") String project, @Param("task") String task, @Param("prp") String prp, @Param("workLoad") double workLoad, @Param("overTime") double overTime);
    Report findById(Long id);
    List<ProjectAndPrp>findPapPrp();
    List<ProjectAndUser>findPauProject();
 
-   List<Report> findByNameAndDate(@Param("name") String name, @Param("startDate")Date startDate, @Param("endDate")Date endDate);
+   List<Report> findByNameAndDate(@Param("name") String name, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
-   List<Report> findByProject(@Param("project")String project);
+   List<Report> findByProject(@Param("project") String project);
 }

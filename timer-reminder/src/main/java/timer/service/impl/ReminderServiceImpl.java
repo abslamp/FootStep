@@ -48,8 +48,18 @@ public class ReminderServiceImpl implements ReminderService {
         }
     }
 
+    @Override
+    public List<String> query(String name) {
+        List<ReminderMessage>  messages = messageMapper.findByName(name);
+        Set<String> res = new HashSet<>();
+        for (ReminderMessage message : messages){
+            res.add(message.getMessage());
+        }
+        return new ArrayList<>(res);
+    }
+
     private void remindLeader() {
-        List<Report> reports = getReportByState("UNAUDITED");
+        List<Report> reports = getReportByState("未审核");
         Set<String> names = new HashSet<>();
         List<String> res = new ArrayList<>();
 
@@ -96,15 +106,13 @@ public class ReminderServiceImpl implements ReminderService {
     }
 
     private List<Date> getLackDates(Date start , Date end){
+        if (start.equals(end))  return null;
 
         System.out.println(start.getTime() + "--" + DateUtils.getFormatString(start));
         System.out.println(end.getTime() + "--" + DateUtils.getFormatString(end));
 
         if (start.getTime() > end.getTime()){
-            System.out.println("swaped");
-            Date tmp = start;
-            start = end;
-            end = tmp;
+            return null;
         }
 
         if (DateUtils.getWeek(end) == 1){
@@ -119,7 +127,7 @@ public class ReminderServiceImpl implements ReminderService {
         List<Date> res = new ArrayList<>();
 
         int tot = 0;
-        while(!start.equals(end) ){
+        while(!start.equals(end) && tot < 14 ){
             tot++;
             System.out.println("start:"+DateUtils.getFormatString(start) +"***"+"end:"+DateUtils.getFormatString(end));
 
@@ -128,6 +136,9 @@ public class ReminderServiceImpl implements ReminderService {
                 res.add(end);
             }
             end = DateUtils.getNextOrBeforeDay(end,-1);
+            if (start.getTime() > end.getTime()){
+                return null;
+            }
         }
 
         return res;
@@ -140,7 +151,10 @@ public class ReminderServiceImpl implements ReminderService {
             message.setLack(lack);
             message.setMessage(message.getUserName()+":"+DateUtils.getFormatString(lack)+remark);
             message.setState(false);
-            messageMapper.insert(message);
+            if(messageMapper.findByPojo(message) == null){
+                messageMapper.insert(message);
+            }
+
         }
     }
 
@@ -153,7 +167,10 @@ public class ReminderServiceImpl implements ReminderService {
             message.setLack(now);
             message.setMessage(message.getUserName()+":"+DateUtils.getFormatString(now)+remark);
             message.setState(false);
-            messageMapper.insert(message);
+            if(messageMapper.findByPojo(message) == null){
+                messageMapper.insert(message);
+            }
+
         }
 
     }

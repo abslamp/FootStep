@@ -21,7 +21,7 @@ public class PersonSelectByDateServiceImpl implements PersonSelectByDateService 
     static int pageSize=5;
 
 
-        /*
+    /*
     *
     * @param startTime 开始时间
     * @param endTime 截止时间
@@ -30,21 +30,7 @@ public class PersonSelectByDateServiceImpl implements PersonSelectByDateService 
     * 使用psb 来实现汇总的行累加存储 之后将这一行加入之前查询到的数组psbd中
     */
 
-    /*
-    *
-    * @param DepartmentSelect 数据源
-    * @param page 分页查询的页数
-    * @param pageSize 一页显示多少行
-    * @param offset 计算分页的定位点
-    * @param SelectByDate 返回所需要的分页查询结果
 
-
-    /*
-    *
-    * @param startTime 开始时间
-    * @param endTime 截止时间
-    * @param name 名字
-     */
 
     @Override
     public List<PersonSelectByDate> QueryByDate(Date startTime,Date endTime,String name)
@@ -63,6 +49,14 @@ public class PersonSelectByDateServiceImpl implements PersonSelectByDateService 
 
         return psbd;
     }
+     /*
+    *
+    * @param DepartmentSelect 数据源
+    * @param page 分页查询的页数
+    * @param pageSize 一页显示多少行
+    * @param offset 计算分页的定位点
+    * @param SelectByDate 返回所需要的分页查询结果
+    */
 
 
     @Override
@@ -72,6 +66,15 @@ public class PersonSelectByDateServiceImpl implements PersonSelectByDateService 
         return Mapper.SelectByDate(PersonSelect,offset,pageSize);
 
     }
+
+
+    /*
+    *
+    * @param startTime 开始时间
+    * @param endTime 截止时间
+    * @param name 名字
+     */
+
 
     @Override
     public int getCount(Date startTime,Date endTime,String name){

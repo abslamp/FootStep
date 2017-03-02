@@ -2,6 +2,7 @@
             //请删除控制表格按钮的两个var
             
             var totalPage=0;
+            var currentSubmitData;
 
             function updateTable(data){
                 //表格添加数据项
@@ -69,13 +70,14 @@
 				}, 1000);
 			}
 			function submitDept(pname) {
-				alert($("#project_dept_edit_form").serialize());
+				//alert($("#project_dept_edit_form").serialize());
 				$.ajax({
                     url: "http://localhost:9002/project/setDepartment",
                     type: "get" ,
                     data: $("#project_dept_edit_form").serialize(),
-                    success: function(data) {refresh();},
+                    success: function(data) {alert(" 提交成功。");refresh();},
                     error: function(code, message, details) {
+                        alert("提交失败。");
                         console.log(message);
                         console.log(code);
                         console.log(details);
@@ -87,8 +89,9 @@
                     url: "http://localhost:9002/project/setUser",
                     type: "get" ,
                     data: $("#project_user_edit_form").serialize(),
-                    success: function(data) {refresh();},
+                    success: function(data) {alert(" 提交成功。");refresh();},
                     error: function(code, message, details) {
+                        alert("提交失败。");
                         console.log(message);
                         console.log(code);
                         console.log(details);
@@ -100,8 +103,9 @@
                     url: "http://localhost:9002/project/setPrp",
                     type: "get" ,
                     data: $("#project_prp_edit_form").serialize(),
-                    success: function(data) {refresh();},
+                    success: function(data) {alert(" 提交成功。");refresh();},
                     error: function(code, message, details) {
+                        alert("提交失败。");
                         console.log(message);
                         console.log(code);
                         console.log(details);
@@ -377,7 +381,9 @@
 					async: true ,
 					success : function(){
 						alert("创建成功。");
-						refresh();
+						currentPage=totalPage;
+						currentSubmitData = null;
+                        refreshData();
 					} ,
 					error: function(){
 						console.log(message);
@@ -399,11 +405,11 @@
 			function refreshDataParam(HTTPMethod){
 				console.log("currentSubmitData:"+currentSubmitData);
 				console.log("currentPage:"+currentPage);
-				submitData = currentSubmitData;
+				var submitData = currentSubmitData;
 				$.ajax({
 					url: ajaxDataRows,
 					type: HTTPMethod,
-					data: submitdata,
+					data: submitData,
 					success: function(data) {
 						totalPage=Math.ceil(data/5);
                         console.log("totalPage:"+totalPage);
@@ -437,6 +443,24 @@
 				);
 				
 			}
+
+            //页面跳转。保留查询条件。
+            function goPage(page) {
+                currentPage=page;
+                var pagedata=currentSubmitData;
+                pagedata+="&page="+page;
+                $.ajax({
+                    url: ajaxDataSource ,
+                    type: ajaxType ,
+                    data: pagedata,
+                    success: function(data) {updatePage();updateTable(data);},
+                    error: function(code, message, details) {
+                        console.log(message);
+                        console.log(code);
+                        console.log(details);
+                    }
+                });
+            }
 
 
             $(document).ready(function(){

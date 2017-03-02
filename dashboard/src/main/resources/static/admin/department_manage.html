@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />         <script src="../assets/js/footstep_pre.js" type="text/javascript"></script>
-        <title>Metronic | Tree View</title>
+        <title>部门管理</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -47,7 +47,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+    <body onload="$('#userName').text($.cookie('username'));reminder($.cookie('username'));" class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
@@ -126,7 +126,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-bell"></i>
-                                    <span class="badge badge-default"> 7 </span>
+                                    <span class="badge badge-default" id="reminderNumber"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="external">
@@ -135,7 +135,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <a href="page_user_profile_1.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 250px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="javascript:;">
                                                     <span class="time">just now</span>
@@ -236,7 +236,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <a href="app_inbox.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 275px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
@@ -311,7 +311,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <a href="app_todo.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 275px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="javascript:;">
                                                     <span class="task">
@@ -413,7 +413,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <img alt="" class="img-circle" src="../assets/layouts/layout2/img/avatar3_small.jpg" />
-                                    <span class="username username-hide-on-mobile"> Nick </span>
+                                    <span class="username username-hide-on-mobile" id="userName"> </span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
@@ -511,11 +511,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <li class="nav-item  ">
                                     <a href="PersonSelectByProject.html" class="nav-link ">
                                         <span class="title">项目工作量</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item  ">
-                                    <a href="person_seleectbydate.html" class="nav-link ">
-                                        <span class="title">部门工作量</span>
                                     </a>
                                 </li>
                             </ul>
@@ -645,18 +640,21 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                     <!-- END THEME PANEL -->
-                    <h3 class="page-title"> Tree View
-                        <small>customizable fuelux tree view</small>
+                    <h3 class="page-title">部门设定
                     </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="icon-home"></i>
-                                <a href="../index.html">Home</a>
+                                <a href="index.html">主页</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <span>UI Features</span>
+                                <a href="#">公司信息管理</a>
+                                <i class="fa fa-angle-right"></i>
+                            </li>
+                            <li>
+                                <span>部门设定</span>
                             </li>
                         </ul>
                         <div class="page-toolbar">
@@ -1413,7 +1411,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN CORE PLUGINS -->
         <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="../assets/js/jquery.cookie-1.4.1.min.js"></script>
         <script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>

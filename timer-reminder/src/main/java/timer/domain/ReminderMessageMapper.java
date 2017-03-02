@@ -1,5 +1,8 @@
 package timer.domain;
 
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -8,5 +11,6 @@ import java.util.List;
 public interface ReminderMessageMapper {
     int insert(ReminderMessage message);
     void delete(Long id);
-    List<ReminderMessage> findByName(String name);
+    List<ReminderMessage> findByName(@Param("name") String name);
+    ReminderMessage findByPojo(ReminderMessage pojo);
 }

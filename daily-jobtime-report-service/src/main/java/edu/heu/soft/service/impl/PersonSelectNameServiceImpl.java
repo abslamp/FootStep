@@ -19,67 +19,73 @@ public class PersonSelectNameServiceImpl implements PersonSelectNameService {
     private PersonSelectNameMapper Mapper;
 
 
-      /*
-    *
-    *  PersonSelectName  SelectNotLeader  不是leader的查询结果
-    *  PersonSelectName  SelectLeader  是leader的查询结果
-    *  Integer Leader 判断是否为leader，0为否，1为是
-    *  List<PersonSelectName> SelectName 返回查询后的结果，作为下拉框的数据
-    */
-
     /*
     * Leader 查找leader
     * return int Select 返回leader的值
     */
 
+
+    @Override
+    public Integer SelectLeader(Integer Leader,String cook){
+
+
+        return Mapper.SelectLeader(Leader,cook);
+
+    }
+
+
+
     /*
-    *  PersonSelectName SelectNotLeader 不是leader的查询方法
-    *  PersonSelectName 返回查询结果
-     */
+    *
+    * @param PersonSelectName  SelectNotLeader  不是leader的查询结果
+    * @param PersonSelectName  SelectLeader  是leader的查询结果
+    * @param PersonSelectName  SelectAdmin  是admin的查询结果
+    * @param Integer Leader 判断是否为leader，admin
+    * @return List<PersonSelectName> SelectName 返回查询后的结果，作为下拉框的数据
+    */
+
+    @Override
+    public List<PersonSelectName> SelectName(PersonSelectName SelectNotLeader,PersonSelectName SelectLeader,PersonSelectName SelectAdmin,Integer Leader,String cook){
+
+
+            return Mapper.SelectName(SelectNotLeader,SelectLeader,SelectAdmin,Leader,cook);
+
+    }
+
+
+
+     /*
+     *  PersonSelectName SelectNotLeader 不是leader的查询方法
+     *  PersonSelectName 返回查询结果
+    */
+
+
+    @Override
+    public List<PersonSelectName> SelectNameNotLeader(PersonSelectName SelectNotLeader,String cook){
+
+        return Mapper.SelectNameNotLeader(SelectNotLeader,cook);
+    }
 
     /*
     *  PersonSelectName SelectLeader 是leader的查询方法
     *  PersonSelectName 返回查询结果
+    */
+    @Override
+    public List<PersonSelectName>SelectNameLeader(PersonSelectName SelectLeader,String cook){
+
+        return Mapper.SelectNameLeader(SelectLeader,cook);
+    }
+
+
+    /*
+    * @param PersonSelectName SelectAdmin 是Admin的查询方法
+    * @return PersonSelectName 返回查询结果
      */
+     @Override
+    public List<PersonSelectName>SelectNameAdmin(PersonSelectName SelectAdmin,String cook){
 
-
-
-
-
-
-
-
-    @Override
-    public Integer SelectLeader(Integer Leader){
-
-
-        return Mapper.SelectLeader(Leader);
-
-    }
-
-
-
-    @Override
-    public List<PersonSelectName> SelectName(PersonSelectName SelectNotLeader,PersonSelectName SelectLeader,Integer Leader){
-
-
-            return Mapper.SelectName(SelectNotLeader,SelectLeader,Leader);
-
-    }
-
-    @Override
-    public List<PersonSelectName> SelectNameNotLeader(PersonSelectName SelectNotLeader){
-
-        return Mapper.SelectNameNotLeader(SelectNotLeader);
-    }
-
-    @Override
-    public List<PersonSelectName>SelectNameLeader(PersonSelectName SelectLeader){
-
-        return Mapper.SelectNameLeader(SelectLeader);
-    }
-
-
+        return  Mapper.SelectNameAdmin(SelectAdmin,cook);
+     }
 
 
 

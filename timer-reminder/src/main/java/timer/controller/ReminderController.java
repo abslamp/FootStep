@@ -24,31 +24,40 @@ public class ReminderController {
     @Autowired
     ReminderService service;
 
-    boolean testTap = false;
-    boolean leaderTap = false;
-    boolean employeeTap = false;
+    boolean testTap = true;
+    boolean leaderTap = true;
+    boolean employeeTap = true;
+
 
     @GetMapping
-    List<Report> query(Date jmt,int role){
-        return service.queryReport(jmt,role);
+    List<String> reminder(String name){
+        return service.query(name);
     }
 
-    @GetMapping("/reminder")
-    void reminder(int role){
-        service.setMessage(role);
+
+    @GetMapping("/employeeTap")
+    void setEmployeeTap(boolean tap){
+        employeeTap = tap;
+        log.info( (employeeTap?"turn on":"turn off")+" :employeeTap");
     }
 
-    @GetMapping("/test")
-    void setTestTap(boolean tap){
-        testTap = tap;
-        log.info( (testTap?"turn on":"turn off")+" :TestTap");
+    @GetMapping("/leaderTap")
+    void setLeaderTapTap(boolean tap){
+        leaderTap = tap;
+        log.info( (employeeTap?"turn on":"turn off")+" :employeeTap");
     }
 
-    @Scheduled(fixedRate = 3000)
-    void printNowTime(){
-        if(testTap){
-            System.out.println(DateUtils.getFormatString(new Date()));
+    @Scheduled(fixedRate = 5000)
+    void employeedMessage(){
+        if(employeeTap){
+            service.setMessage(3);
         }
     }
 
+    @Scheduled(fixedRate = 50000)
+    void leaderMessage(){
+        if(leaderTap){
+            service.setMessage(2);
+        }
+    }
 }

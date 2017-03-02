@@ -17,9 +17,9 @@ public class Project {
 
     private Long id;
     private String name;
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private Date startTime;
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy/MM/dd",timezone = "GMT+8")
     private Date endTime;
 
 }

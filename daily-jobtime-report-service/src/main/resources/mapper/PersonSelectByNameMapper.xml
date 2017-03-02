@@ -9,7 +9,7 @@
     <select id="SelectName"    resultType="edu.heu.soft.domain.PersonSelectName">
 
 
-             select name from user where department in(select department from user where name='盘古');
+             select name from user where department in(select department from user where name=#{cook}) and name!=#{cook};
 
 
     </select>
@@ -17,23 +17,28 @@
 
     <select id="SelectLeader"  resultType="integer">
 
-           SELECT role from user WHERE name='盘古';
+           SELECT role from user WHERE name=#{cook};
 
     </select>
 
      <select id="SelectNameNotLeader" resultType="edu.heu.soft.domain.PersonSelectName">
 
-             SELECT NAME FROM USER WHERE NAME ='盘古';
+             SELECT NAME FROM USER WHERE 1=2;
      </select>
 
     <select id="SelectNameLeader"    resultType="edu.heu.soft.domain.PersonSelectName">
 
 
-        select name from user where department in(select department from user where name='盘古');
+        select name from user where department in(select department from user where name=#{cook})and name!=#{cook};
 
 
     </select>
 
+    <select id="SelectNameAdmin"  resultType="edu.heu.soft.domain.PersonSelectName">
+
+        SELECT name from user where name!=#{cook};
+
+    </select>
 
 
 

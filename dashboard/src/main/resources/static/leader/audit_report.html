@@ -8,7 +8,7 @@
 
     <head>
         <meta charset="utf-8" />         <script src="../assets/js/footstep_pre.js" type="text/javascript"></script>
-        <title>Metronic | Ajax Datatables</title>
+        <title>日报审核</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
@@ -39,7 +39,7 @@
         <!--<link rel="shortcut icon" href="favicon.ico" /> </head>-->
     <!-- END HEAD -->
 
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+    <body onload="$('#userName').text($.cookie('username'));reminder($.cookie('username'));" class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->
@@ -118,7 +118,7 @@
                             <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <i class="icon-bell"></i>
-                                    <span class="badge badge-default"> 7 </span>
+                                    <span class="badge badge-default" id="reminderNumber"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="external">
@@ -127,7 +127,7 @@
                                         <a href="page_user_profile_1.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 250px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="javascript:;">
                                                     <span class="time">just now</span>
@@ -228,7 +228,7 @@
                                         <a href="app_inbox.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 275px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="#">
                                                     <span class="photo">
@@ -303,7 +303,7 @@
                                         <a href="app_todo.html">view all</a>
                                     </li>
                                     <li>
-                                        <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                        <ul class="dropdown-menu-list scroller" id="reminder" style="height: 275px;" data-handle-color="#637283">
                                             <li>
                                                 <a href="javascript:;">
                                                     <span class="task">
@@ -405,7 +405,7 @@
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <img alt="" class="img-circle" src="../assets/layouts/layout2/img/avatar3_small.jpg" />
-                                    <span class="username username-hide-on-mobile"> Nick </span>
+                                    <span class="username username-hide-on-mobile" id="userName"> </span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
@@ -528,7 +528,7 @@
                                 </li>
                                 <li class="nav-item  ">
                                     <a href="person_seleectbydate.html" class="nav-link ">
-                                        <span class="title">部门工作量</span>
+                                        <span class="title">个人日报查询</span>
                                     </a>
                                 </li>
                             </ul>
@@ -630,49 +630,22 @@
                         </div>
                     </div>
                     <!-- END THEME PANEL -->
-                    <h3 class="page-title"> Ajax Datatables
-                        <small>basic datatable samples</small>
+                    <h3 class="page-title"> 日报审核
+                        <small></small>
                     </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="icon-home"></i>
-                                <a href="../index.html">Home</a>
+                                <a href="index.html">主页</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                             <li>
-                                <a href="#">Tables</a>
-                                <i class="fa fa-angle-right"></i>
-                            </li>
-                            <li>
-                                <span>Datatables</span>
+                                <span>日报审核</span>
                             </li>
                         </ul>
                         <div class="page-toolbar">
-                            <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bell"></i> Action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-shield"></i> Another action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-user"></i> Something else here</a>
-                                    </li>
-                                    <li class="divider"> </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bag"></i> Separated link</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                     <!-- END PAGE HEADER-->
@@ -704,7 +677,7 @@
 		                                            <select name="state" class="form-control">
 		                                                <option value="" selected>全部</option>
 		                                                <option>未审核</option>
-		                                                <option>已审核</option>
+		                                                <option>已通过</option>
 		                                                <option>未通过</option>
 		                                                    、							</select>
 		                                        </div>
@@ -716,7 +689,7 @@
 	                                        	<div class="col-md-10">
 	                                            	<div class="input-group input-large date-picker input-daterange"  data-date-format="yyyy/mm/dd">
 	                                                        <input type="text" class="form-control" name="startDate">
-	                                                        <span class="input-group-addon"> to </span>
+	                                                        <span class="input-group-addon"> 至 </span>
 	                                                        <input type="text" class="form-control" name="endDate"> </div>
 	                                        	</div>
 	                                        </div>
@@ -724,7 +697,7 @@
                                     </form>
                                 </div>
                                 <div align="right">
-									<a href="javascript:"><button type="button" class="btn btn-default">清空</button></a>
+									<a href="javascript:$('#footstep_form')[0].reset()"><button type="button" class="btn btn-default">清空</button></a>
 									<a href="javascript:btnQuery()"><button type="button" class="btn btn-primary">查询</button></a>
 								</div>
                                 <p>　</p>
@@ -763,6 +736,7 @@
                                                     <th> # </th>
                                                     <th> 撰写人 </th>
                                                     <th> 项目名称 </th>
+                                                    <th> PRP阶段 </th>
                                                     <th> 任务内容 </th>
                                                     <th> 撰写日期 </th>
                                                     <th> 工作时间 </th>
@@ -1375,7 +1349,7 @@
         <!-- BEGIN CORE PLUGINS -->
         <script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="../assets/js/jquery.cookie-1.4.1.min.js"></script>
         <script src="../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>

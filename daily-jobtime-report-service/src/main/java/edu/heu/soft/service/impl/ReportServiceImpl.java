@@ -67,7 +67,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public String insert(Report report) {
 
-        mapper.insert(report.getJmt(),report.getName(),report.getTask(),report.getPrp(),report.getProject(),report.getWorkLoad(),report.getOverTime());
+        mapper.insert(report.getName(),report.getProject(),report.getTask(),report.getJmt(),report.getWorkLoad(),report.getOverTime(),report.getPrp());
 
         return "sucess";
 

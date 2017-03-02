@@ -46,6 +46,7 @@
                         
                 $(".pagination").empty();
                 $(".pagination").append($(pagehtml));
+                if(totalPage==0) $(".pagination").empty();
             }
 
 			//更新分页高亮(当前第几页)，内部用
@@ -118,6 +119,7 @@
                         
                         $(".pagination").empty();
                         $(".pagination").append($(pagehtml));
+                        if(totalPage==0) $(".pagination").empty();
                         //可以取值了
                         doAjax(1);
                     },
@@ -209,6 +211,7 @@
                         
                         $(".pagination").empty();
                         $(".pagination").append($(pagehtml));
+                        if(totalPage==0) $(".pagination").empty();
                         if(currentPage>totalPage) currentPage=totalPage;//防止删除后页码越界
                         submitData+=("&page="+totalPage);
                         //可以取值了
@@ -253,6 +256,9 @@
                         
                         $(".pagination").empty();
                         $(".pagination").append($(pagehtml));
+                        if(totalPage==0)
+                            $(".pagination").empty();
+
                         //可以取值了
                         currentPage=1;
 						formdata=$("#"+formID).serialize();

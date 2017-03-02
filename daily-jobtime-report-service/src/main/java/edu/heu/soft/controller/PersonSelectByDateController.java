@@ -36,9 +36,9 @@ public class PersonSelectByDateController {
 
     @RequestMapping(value = "/select")
     public List<PersonSelectByDate> queryByDate(Date startTime,Date endTime, String name){
-        System.out.println(startTime.toString());
-        System.out.println(endTime.toString());
-        System.out.println(name);
+//        System.out.println(startTime.toString());
+//        System.out.println(endTime.toString());
+//        System.out.println(name);
 
         List<PersonSelectByDate> datas = service.QueryByDate(startTime,endTime,name);
 
@@ -75,7 +75,8 @@ public class PersonSelectByDateController {
 
         public int getCount(Date startTime,Date endTime,String name)
     {
-        return service.getCount(startTime,endTime,name);
+        //return service.getCount(startTime,endTime,name);
+        return service.QueryByDate(startTime,endTime,name).size();
     }
 
 

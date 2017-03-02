@@ -19,6 +19,10 @@
         DELETE FROM ReminderMessage WHERE id = #{id}
     </delete>
     <select id="findByName" resultType="timer.domain.ReminderMessage">
-        SELECT * FROM ReminderMessage WHERE (NAME = #{name})
+        SELECT * FROM ReminderMessage WHERE (USERNAME = #{name})
+    </select>
+
+    <select id="findByPojo" resultType="timer.domain.ReminderMessage">
+        SELECT * FROM ReminderMessage WHERE (USERNAME = #{userName}) AND (LAck = #{lack}) AND (message = #{message}) AND (state = #{state})
     </select>
 </mapper>

@@ -31,19 +31,24 @@ public class PersonSelectNameController {
     *
     * @param PersonSelectName  SelectNotLeader  不是leader的查询结果
     * @param PersonSelectName  SelectLeader  是leader的查询结果
-    * @param Integer Leader 判断是否为leader，0为否，1为是
+    * @param PersonSelectName  SelectAdmin  是admin的查询结果
+    * @param Integer Leader 判断是否为leader，admin
     * @return List<PersonSelectName> SelectName 返回查询后的结果，作为下拉框的数据
     */
     @RequestMapping(value = "/name")
 
-    public List<PersonSelectName> SelectName(PersonSelectName SelectNotLeader,PersonSelectName SelectLeader,Integer Leader){
+    public List<PersonSelectName> SelectName(PersonSelectName SelectNotLeader,PersonSelectName SelectLeader,PersonSelectName SelectAdmin,Integer Leader,String cook){
 
 
 
-        if (service.SelectLeader(Leader)==1)
-            return service.SelectNameLeader(SelectLeader);
-
-        return service.SelectNameNotLeader(SelectNotLeader);
+        if (service.SelectLeader(Leader,cook)==2)
+            return service.SelectNameLeader(SelectLeader,cook);
+        else if (service.SelectLeader(Leader,cook)==0)
+            return service.SelectNameAdmin(SelectAdmin,cook);
+        else if (service.SelectLeader(Leader,cook)==1)
+            return service.SelectNameAdmin(SelectAdmin,cook);
+        else
+            return service.SelectNameNotLeader(SelectNotLeader,cook);
     }
 
 
@@ -55,9 +60,9 @@ public class PersonSelectNameController {
 
     @RequestMapping(value ="leader")
 
-    public int SelectLeader (int Leader)
+    public int SelectLeader (int Leader,String cook)
     {
-        return service.SelectLeader(Leader);
+        return service.SelectLeader(Leader,cook);
     }
 
     /*
@@ -67,8 +72,8 @@ public class PersonSelectNameController {
 
 
     @RequestMapping(value ="nameNotLeader")
-    public List<PersonSelectName> SelectName1(PersonSelectName SelectNotLeader){
-        return service.SelectNameNotLeader(SelectNotLeader);
+    public List<PersonSelectName> SelectName1(PersonSelectName SelectNotLeader,String cook){
+        return service.SelectNameNotLeader(SelectNotLeader,cook);
     }
 
 
@@ -77,11 +82,19 @@ public class PersonSelectNameController {
     * @return PersonSelectName 返回查询结果
      */
     @RequestMapping(value ="nameLeader")
-    public List<PersonSelectName> SelectNameLeader(PersonSelectName SelectLeader){
-        return service.SelectNameLeader(SelectLeader);
+    public List<PersonSelectName> SelectNameLeader(PersonSelectName SelectLeader,String cook){
+        return service.SelectNameLeader(SelectLeader,cook);
     }
 
+     /*
+    * @param PersonSelectName SelectAdmin 是Admin的查询方法
+    * @return PersonSelectName 返回查询结果
+     */
 
+     @RequestMapping(value="admin")
+    public List<PersonSelectName> SelectNameAdmin(PersonSelectName SelectAdmin,String cook){
+         return service.SelectNameAdmin(SelectAdmin,cook);
+     }
 
 
 

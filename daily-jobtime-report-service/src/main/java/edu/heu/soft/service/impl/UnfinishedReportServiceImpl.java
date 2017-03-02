@@ -28,12 +28,14 @@ public class UnfinishedReportServiceImpl implements UnfinishedReportService {
         for (Report report : reports){
             res.add(report.getJmt());
         }
+        System.out.println(res.toString());
         return res;
     }
 
     @Override
-    public Map<String, List<Date>> queryDepartment(String departmentName) {
-        List<User> users = userMapper.findByDepartment(departmentName);
+    public Map<String, List<Date>> queryDepartment(String leaderName) {
+        User leader = userMapper.findByName(leaderName);
+        List<User> users = userMapper.findByDepartment(leader.getDepartment());
         if (users == null)  return null;
         List<String> names = new ArrayList<>();
         for (User user : users){

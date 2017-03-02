@@ -1,5 +1,6 @@
 package timer.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class ReminderMessage {
     private String message;
     private boolean state;
     private String userName;
+    @JsonFormat(pattern = "yyyy/MM/dd" ,timezone = "GMT+8")
     private Date lack;
 
 }

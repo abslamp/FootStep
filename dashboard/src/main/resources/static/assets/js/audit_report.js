@@ -276,9 +276,7 @@ var totalPage=0;
                 });
 
             });
-            
-            
-			
+
 			function ajaxSimpleSelectBox(selectId,url,ajaxdata,defaultName,defaultValue){
 				$target = $("#"+selectId);
 				$target.empty(); //清空
