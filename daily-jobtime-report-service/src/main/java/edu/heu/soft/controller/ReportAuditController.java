@@ -69,16 +69,39 @@ public class ReportAuditController {
         }
     }
 
+//    @RequestMapping(value = "/getcount")
+//    int getCount(HttpServletRequest request,String name , String state , Date startDate,Date endDate) {
+//
+//        if (name == null){
+//            String leaderName = null;
+//            try {
+//                leaderName = CookieUtils.findCookieByName("username",request).getValue();
+//            } catch (Exception e) {
+//                //e.printStackTrace();
+//                return 0;
+//            }
+//            try {
+//                leaderName = java.net.URLDecoder.decode(leaderName,"UTF-8");
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//
+//            }
+//            return service.queryBySubordinate(leaderName,state,startDate,endDate).size();
+//        }
+//        System.out.println(endDate);
+//        return service.query(name,state,startDate,endDate).size();
+//    }
+
     @RequestMapping(value = "/getcount")
     int getCount(HttpServletRequest request,String name , String state , Date startDate,Date endDate) {
+        List<Report> result;
 
-        if (name == null){
+        if (name == null || name.equals("")){
             String leaderName = null;
             try {
                 leaderName = CookieUtils.findCookieByName("username",request).getValue();
             } catch (Exception e) {
-                //e.printStackTrace();
-                return 0;
+                return 1;
             }
             try {
                 leaderName = java.net.URLDecoder.decode(leaderName,"UTF-8");
@@ -86,10 +109,17 @@ public class ReportAuditController {
                 e.printStackTrace();
 
             }
-            return service.queryBySubordinate(leaderName,state,startDate,endDate).size();
+            result = service.queryBySubordinate(leaderName,state,startDate,endDate);
+        } else {
+            result = service.query(name,state,startDate,endDate);
         }
-        System.out.println(endDate);
-        return service.query(name,state,startDate,endDate).size();
+
+        try {
+            return result.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 1;
+        }
     }
 
     @RequestMapping(value = "/subordinate")

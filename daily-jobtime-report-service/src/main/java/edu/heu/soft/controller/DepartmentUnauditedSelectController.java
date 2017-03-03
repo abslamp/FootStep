@@ -1,5 +1,6 @@
 package edu.heu.soft.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.heu.soft.domain.DepartmentUnauditedSelect;
 import edu.heu.soft.domain.PersonSelectByDate;
 import edu.heu.soft.service.DepartmentUnauditedSelectService;
@@ -16,6 +17,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping("/DepartmentUnauditedSelect")
+
 public class DepartmentUnauditedSelectController {
 
     @Autowired
@@ -34,6 +36,7 @@ public class DepartmentUnauditedSelectController {
 
 
 
+    @JsonIgnoreProperties({"auditor","mailAddress"})
     @RequestMapping(value = "/select")
     public List<DepartmentUnauditedSelect> queryByDate(Date startTime, Date endTime, String department,Integer page){
 //        System.out.println(startTime.toString());
@@ -54,6 +57,7 @@ public class DepartmentUnauditedSelectController {
     */
 
 
+    @JsonIgnoreProperties({"auditor","mailAddress"})
     @RequestMapping(value = "/work")
     public List<DepartmentUnauditedSelect> selectByDate( DepartmentUnauditedSelect DepartmentSelect,Integer page){
 

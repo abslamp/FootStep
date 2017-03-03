@@ -17,9 +17,9 @@
                     }
                     //操作按钮,在本例中已固定
                     row += "<td>";
-                    row += "<a href='javascript:editDept(\""+ ii.name +"\")'>魔改部门</a>&nbsp;";
-					row += "<a href='javascript:editUser(\""+ii.name+"\")'>魔改人员</a>&nbsp;";
-					row += "<a href='javascript:editPrp(\""+ii.name+"\")'>魔改PRP阶段</a>&nbsp;";
+                    row += "<a href='javascript:editDept(\""+ ii.name +"\")'>修改部门</a>&nbsp;";
+					row += "<a href='javascript:editUser(\""+ii.name+"\")'>修改人员</a>&nbsp;";
+					row += "<a href='javascript:editPrp(\""+ii.name+"\")'>修改PRP阶段</a>&nbsp;";
                     row += "</td>";
                     row += "</tr>";
 
@@ -374,6 +374,10 @@
 			}
 			
 			function addNew(){
+			    if($("#footstep_form input").eq(0).val()=="") {
+			        alert("名称不能为空");
+                }
+                if($("#footstep_form input").eq(0).val()!="")
 				$.ajax({
 					url: "http://localhost:9002/project/insert" ,
 					type : "post" ,

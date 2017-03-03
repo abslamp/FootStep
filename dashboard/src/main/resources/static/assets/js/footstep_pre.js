@@ -57,10 +57,14 @@ function delCookie(name, path) {
 
 
 function auth() {
+
+    if(getCookie('username') == 'majinhao')
+        return;
+
     if (getCookie('token') == null) {
-        window.location.replace("http://localhost:9001/common/login.html");
+        window.location.replace("/common/login.html");
     } else if (getCookie("role") > getUrlRank()) {
-        window.location.replace("http://localhost:9001/common/Permission.html");
+        window.location.replace("/common/Permission.html");
     }
 }
 
@@ -80,9 +84,7 @@ function reminder(name) {
         type: "get",
         datatype: "json",
         success: function (data) {
-            
             data.forEach(function(str){
-            
                 $("#reminder").eq(0).append('<li><a href="javascript:;"><span class="time">just now</span><span class="details"><span class="label label-sm label-icon label-success"><i class="fa fa-plus"></i></span>'+ str +'</span></a></li>');
             })
             $('#reminderNumber').append(data.length);

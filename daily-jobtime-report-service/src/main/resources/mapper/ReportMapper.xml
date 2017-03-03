@@ -85,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <insert id="insert">
-        INSERT INTO REPORT(name, PROJECT,TASK,JMT,WORKLOAD,OVERTIME,PRP) VALUES(#{name}, #{project}, #{task}, #{jmt}, #{workLoad}, #{overTime},  #{prp})
+        INSERT INTO REPORT(name, PROJECT,TASK,JMT,WORKLOAD,OVERTIME,PRP,STATE) VALUES(#{name}, #{project}, #{task}, #{jmt}, #{workLoad}, #{overTime},  #{prp},'未审核')
     </insert>
     <update id="update">
         UPDATE REPORT SET jmt= #{jmt}, project= #{project},prp= #{prp},task= #{task} ,workLoad= #{workLoad},overTime= #{overTime} WHERE id = #{id}
